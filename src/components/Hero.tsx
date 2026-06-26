@@ -1,233 +1,170 @@
-"use client";
+'use client'
 
-import { motion } from "framer-motion";
-import { ArrowRight, Play, CheckCircle2 } from "lucide-react";
+import { motion } from 'framer-motion'
+import { ArrowRight, Play, CheckCircle2 } from 'lucide-react'
 
-const highlights = [
-  "Sin tarjeta de crédito",
-  "Configuración en 5 minutos",
-  "Soporte 24/7",
-];
+const highlights = ['Sin tarjeta de crédito', 'Configura en 5 minutos', 'Soporte en español']
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 pt-16">
-      {/* Background grid */}
-      <div
-        className="absolute inset-0 opacity-20"
-        style={{
-          backgroundImage:
-            "linear-gradient(rgba(59,130,246,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,0.3) 1px, transparent 1px)",
-          backgroundSize: "60px 60px",
-        }}
-      />
+    <section style={{
+      minHeight: '100vh',
+      background: 'linear-gradient(135deg, #1e1b4b 0%, #312e81 45%, #4c1d95 100%)',
+      display: 'flex', alignItems: 'center',
+      position: 'relative', overflow: 'hidden',
+      paddingTop: 80,
+    }}>
+      {/* Grid overlay */}
+      <div style={{
+        position: 'absolute', inset: 0, opacity: 0.15, pointerEvents: 'none',
+        backgroundImage: 'linear-gradient(rgba(165,180,252,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(165,180,252,0.4) 1px, transparent 1px)',
+        backgroundSize: '60px 60px',
+      }} />
+      {/* Glow orbs */}
+      <div style={{ position: 'absolute', width: 500, height: 500, borderRadius: '50%', background: 'radial-gradient(circle, rgba(99,102,241,.28) 0%, transparent 70%)', filter: 'blur(80px)', top: -100, right: -80, pointerEvents: 'none' }} />
+      <div style={{ position: 'absolute', width: 350, height: 350, borderRadius: '50%', background: 'radial-gradient(circle, rgba(139,92,246,.2) 0%, transparent 70%)', filter: 'blur(80px)', bottom: -60, left: -60, pointerEvents: 'none' }} />
 
-      {/* Glow effects */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-orange-500/15 rounded-full blur-3xl pointer-events-none" />
+      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '60px 40px', width: '100%', position: 'relative' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, alignItems: 'center' }} className='hero-grid'>
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          {/* Left: copy */}
+          {/* Left */}
           <div>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 px-4 py-1.5 bg-blue-500/20 border border-blue-500/30 rounded-full text-blue-300 text-sm font-medium mb-6"
-            >
-              <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse" />
-              Software #1 para academias de conducción
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}
+              style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(165,180,252,.12)', color: '#c7d2fe', border: '1px solid rgba(165,180,252,.2)', borderRadius: 99, padding: '6px 14px', fontSize: 13, fontWeight: 600, marginBottom: 24 }}>
+              <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#a5b4fc', display: 'inline-block', animation: 'pulse 2s infinite' }} />
+              Software N.° 1 para academias de conducción
             </motion.div>
 
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-tight tracking-tight"
-            >
-              Gestiona tu academia{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">
+            <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1 }}
+              style={{ fontSize: 'clamp(32px, 4vw, 52px)', fontWeight: 900, lineHeight: 1.1, color: '#fff', letterSpacing: -1.5, marginBottom: 20 }}>
+              Gestiona tu academia{' '}
+              <span style={{ background: 'linear-gradient(90deg, #a5b4fc, #c084fc)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
                 de conducción
-              </span>{" "}
+              </span>{' '}
               sin complicaciones
             </motion.h1>
 
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="mt-6 text-lg text-slate-300 leading-relaxed max-w-xl"
-            >
-              ConduClass centraliza estudiantes, instructores, vehículos y agenda en
-              una sola plataforma inteligente. Más tiempo para enseñar, menos tiempo
-              en papeleo.
+            <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }}
+              style={{ fontSize: 17, lineHeight: 1.7, color: 'rgba(255,255,255,.65)', marginBottom: 28, maxWidth: 460 }}>
+              ConduClass centraliza estudiantes, instructores, vehículos y agenda en una sola plataforma. Más tiempo para enseñar, menos para papeleo.
             </motion.p>
 
-            <motion.ul
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              className="mt-6 flex flex-wrap gap-4"
-            >
-              {highlights.map((item) => (
-                <li key={item} className="flex items-center gap-2 text-slate-300 text-sm">
-                  <CheckCircle2 className="w-4 h-4 text-green-400 shrink-0" />
+            <motion.ul initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.3 }}
+              style={{ listStyle: 'none', display: 'flex', flexWrap: 'wrap', gap: 16, marginBottom: 36 }}>
+              {highlights.map(item => (
+                <li key={item} style={{ display: 'flex', alignItems: 'center', gap: 6, color: 'rgba(255,255,255,.75)', fontSize: 13 }}>
+                  <CheckCircle2 size={14} color='#34d399' />
                   {item}
                 </li>
               ))}
             </motion.ul>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-              className="mt-10 flex flex-col sm:flex-row gap-4"
-            >
-              <a
-                href="#contacto"
-                className="inline-flex items-center justify-center gap-2 px-7 py-4 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-2xl transition-all shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 hover:-translate-y-0.5 group"
-              >
-                Comenzar gratis
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.4 }}
+              style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginBottom: 40 }}>
+              <a href='#contact' style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '13px 26px', borderRadius: 12, fontSize: 15, fontWeight: 700, background: '#4f46e5', color: '#fff', boxShadow: '0 4px 20px rgba(79,70,229,.5)', textDecoration: 'none' }}>
+                Comenzar gratis <ArrowRight size={16} />
               </a>
-              <a
-                href="#como-funciona"
-                className="inline-flex items-center justify-center gap-2 px-7 py-4 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-2xl border border-white/20 transition-all"
-              >
-                <Play className="w-4 h-4 fill-white" />
-                Ver demo
+              <a href='#how' style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '13px 26px', borderRadius: 12, fontSize: 15, fontWeight: 600, background: 'rgba(255,255,255,.1)', color: '#fff', border: '1px solid rgba(255,255,255,.25)', textDecoration: 'none' }}>
+                <Play size={14} fill='white' /> Cómo funciona
               </a>
+            </motion.div>
+
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.55 }}
+              style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+              <div style={{ display: 'flex' }}>
+                {['MA','LP','CR','SV','JP'].map((av, i) => (
+                  <div key={av} style={{ width: 36, height: 36, borderRadius: '50%', border: '2px solid #1e1b4b', background: '#4f46e5', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 700, color: '#fff', marginLeft: i === 0 ? 0 : -10 }}>{av}</div>
+                ))}
+              </div>
+              <p style={{ fontSize: 13, color: 'rgba(255,255,255,.6)', lineHeight: 1.4 }}>
+                <strong style={{ color: '#fff' }}>+500 academias</strong><br />ya gestionan sus clases con ConduClass
+              </p>
             </motion.div>
           </div>
 
-          {/* Right: Dashboard mockup */}
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7, delay: 0.3 }}
-            className="relative"
-          >
-            <div className="relative bg-slate-800/80 backdrop-blur rounded-2xl border border-slate-700/60 shadow-2xl overflow-hidden">
-              {/* Mockup header */}
-              <div className="flex items-center gap-2 px-5 py-3.5 border-b border-slate-700/60 bg-slate-900/50">
-                <span className="w-3 h-3 rounded-full bg-red-400/80" />
-                <span className="w-3 h-3 rounded-full bg-yellow-400/80" />
-                <span className="w-3 h-3 rounded-full bg-green-400/80" />
-                <span className="ml-4 text-xs text-slate-400 font-mono">
-                  app.conduclass.co
-                </span>
+          {/* Right — Dashboard mockup */}
+          <motion.div initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.7, delay: 0.3 }}
+            style={{ position: 'relative' }}>
+            <div style={{ background: 'rgba(15,23,42,.85)', backdropFilter: 'blur(12px)', borderRadius: 20, border: '1px solid rgba(99,102,241,.25)', boxShadow: '0 40px 80px rgba(0,0,0,.5)', overflow: 'hidden' }}>
+              {/* Browser bar */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '12px 20px', borderBottom: '1px solid rgba(99,102,241,.15)', background: 'rgba(0,0,0,.3)' }}>
+                <span style={{ width: 11, height: 11, borderRadius: '50%', background: 'rgba(248,113,113,.8)' }} />
+                <span style={{ width: 11, height: 11, borderRadius: '50%', background: 'rgba(250,204,21,.8)' }} />
+                <span style={{ width: 11, height: 11, borderRadius: '50%', background: 'rgba(74,222,128,.8)' }} />
+                <span style={{ marginLeft: 14, fontSize: 11, color: 'rgba(148,163,184,.7)', fontFamily: 'monospace' }}>app.conduclass.co</span>
               </div>
-
-              {/* Mockup body */}
-              <div className="p-5 space-y-4">
-                {/* Stat cards */}
-                <div className="grid grid-cols-3 gap-3">
-                  {[
-                    { label: "Estudiantes", value: "248", color: "bg-blue-500" },
-                    { label: "Instructores", value: "12", color: "bg-orange-500" },
-                    { label: "Vehículos", value: "18", color: "bg-green-500" },
-                  ].map((stat) => (
-                    <div key={stat.label} className="bg-slate-700/50 rounded-xl p-3">
-                      <div className={`w-7 h-7 ${stat.color} rounded-lg mb-2 opacity-90`} />
-                      <div className="text-xl font-bold text-white">{stat.value}</div>
-                      <div className="text-xs text-slate-400">{stat.label}</div>
+              <div style={{ padding: 20 }}>
+                {/* Stats */}
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12, marginBottom: 16 }}>
+                  {[{ label: 'Estudiantes', value: '248', bg: '#4f46e5' }, { label: 'Instructores', value: '12', bg: '#7c3aed' }, { label: 'Vehículos', value: '18', bg: '#059669' }].map(s => (
+                    <div key={s.label} style={{ background: 'rgba(255,255,255,.06)', borderRadius: 12, padding: 14 }}>
+                      <div style={{ width: 28, height: 28, borderRadius: 8, background: s.bg, marginBottom: 8 }} />
+                      <div style={{ fontSize: 22, fontWeight: 800, color: '#fff' }}>{s.value}</div>
+                      <div style={{ fontSize: 11, color: 'rgba(148,163,184,.7)' }}>{s.label}</div>
                     </div>
                   ))}
                 </div>
-
-                {/* Calendar mockup */}
-                <div className="bg-slate-700/40 rounded-xl p-4">
-                  <div className="text-xs font-semibold text-slate-300 mb-3">
-                    Clases de hoy — martes 6 mayo
-                  </div>
-                  {[
-                    { time: "08:00", name: "Carlos Gómez", inst: "Luis R.", status: "Completada" },
-                    { time: "10:30", name: "Ana Torres", inst: "María V.", status: "En curso" },
-                    { time: "14:00", name: "Pedro Silva", inst: "Luis R.", status: "Pendiente" },
-                  ].map((row) => (
-                    <div
-                      key={row.time}
-                      className="flex items-center justify-between py-2 border-b border-slate-600/40 last:border-0"
-                    >
-                      <div className="flex items-center gap-3">
-                        <span className="text-xs font-mono text-blue-400 w-10">{row.time}</span>
-                        <div>
-                          <div className="text-xs font-medium text-white">{row.name}</div>
-                          <div className="text-xs text-slate-400">{row.inst}</div>
-                        </div>
+                {/* Clases */}
+                <div style={{ background: 'rgba(255,255,255,.05)', borderRadius: 12, padding: 14, marginBottom: 12 }}>
+                  <div style={{ fontSize: 11, fontWeight: 600, color: 'rgba(203,213,225,.9)', marginBottom: 10 }}>Clases de hoy</div>
+                  {[{ time: '08:00', name: 'Carlos Gómez', inst: 'Luis R.', s: 'Completada', c: '#10b981' }, { time: '10:30', name: 'Ana Torres', inst: 'María V.', s: 'En curso', c: '#818cf8' }, { time: '14:00', name: 'Pedro Silva', inst: 'Luis R.', s: 'Pendiente', c: '#64748b' }].map(row => (
+                    <div key={row.time} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '7px 0', borderBottom: '1px solid rgba(255,255,255,.06)' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                        <span style={{ fontSize: 11, fontFamily: 'monospace', color: '#818cf8', width: 36 }}>{row.time}</span>
+                        <div><div style={{ fontSize: 11, fontWeight: 600, color: '#fff' }}>{row.name}</div><div style={{ fontSize: 10, color: '#64748b' }}>{row.inst}</div></div>
                       </div>
-                      <span
-                        className={`text-xs px-2 py-0.5 rounded-full font-medium ${
-                          row.status === "Completada"
-                            ? "bg-green-500/20 text-green-400"
-                            : row.status === "En curso"
-                            ? "bg-blue-500/20 text-blue-400"
-                            : "bg-slate-600/50 text-slate-400"
-                        }`}
-                      >
-                        {row.status}
-                      </span>
+                      <span style={{ fontSize: 10, padding: '3px 8px', borderRadius: 99, background: row.c + '22', color: row.c, fontWeight: 600 }}>{row.s}</span>
                     </div>
                   ))}
                 </div>
-
-                {/* Progress bar */}
-                <div className="bg-slate-700/40 rounded-xl p-4">
-                  <div className="flex justify-between items-center mb-2">
-                    <span className="text-xs text-slate-300 font-semibold">Progreso mensual</span>
-                    <span className="text-xs text-blue-400 font-bold">78%</span>
+                {/* Progress */}
+                <div style={{ background: 'rgba(255,255,255,.05)', borderRadius: 12, padding: 14 }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
+                    <span style={{ fontSize: 11, fontWeight: 600, color: 'rgba(203,213,225,.9)' }}>Progreso mensual</span>
+                    <span style={{ fontSize: 11, fontWeight: 700, color: '#818cf8' }}>78%</span>
                   </div>
-                  <div className="h-2 bg-slate-600 rounded-full overflow-hidden">
-                    <div
-                      className="h-full bg-gradient-to-r from-blue-500 to-cyan-400 rounded-full"
-                      style={{ width: "78%" }}
-                    />
+                  <div style={{ height: 6, background: 'rgba(255,255,255,.1)', borderRadius: 99, overflow: 'hidden' }}>
+                    <div style={{ height: '100%', width: '78%', background: 'linear-gradient(90deg, #6366f1, #a78bfa)', borderRadius: 99 }} />
                   </div>
-                  <div className="mt-2 text-xs text-slate-400">156 de 200 clases completadas</div>
+                  <div style={{ fontSize: 10, color: '#64748b', marginTop: 6 }}>156 de 200 clases completadas</div>
                 </div>
               </div>
             </div>
 
-            {/* Floating badge */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.8 }}
-              className="absolute -bottom-5 -left-5 bg-white rounded-2xl shadow-xl px-4 py-3 flex items-center gap-3"
-            >
-              <div className="w-10 h-10 bg-green-100 rounded-xl flex items-center justify-center">
-                <CheckCircle2 className="w-5 h-5 text-green-600" />
+            {/* Floating badges */}
+            <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5, delay: 0.9 }}
+              style={{ position: 'absolute', bottom: -20, left: -20, background: '#fff', borderRadius: 16, boxShadow: '0 20px 40px rgba(0,0,0,.2)', padding: '12px 16px', display: 'flex', alignItems: 'center', gap: 12 }}>
+              <div style={{ width: 38, height: 38, background: '#d1fae5', borderRadius: 10, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <CheckCircle2 size={20} color='#059669' />
               </div>
               <div>
-                <div className="text-xs font-bold text-slate-900">Clase completada</div>
-                <div className="text-xs text-slate-500">Pedro aprobó nivel básico</div>
+                <div style={{ fontSize: 11, fontWeight: 700, color: '#0f172a' }}>Clase completada</div>
+                <div style={{ fontSize: 10, color: '#64748b' }}>Pedro aprobó nivel básico</div>
               </div>
             </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 1 }}
-              className="absolute -top-4 -right-4 bg-blue-600 rounded-2xl shadow-xl px-4 py-3 text-white"
-            >
-              <div className="text-xs font-semibold opacity-80">Nuevos estudiantes</div>
-              <div className="text-2xl font-extrabold">+34%</div>
-              <div className="text-xs opacity-70">este mes</div>
+            <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5, delay: 1.1 }}
+              style={{ position: 'absolute', top: -16, right: -16, background: '#4f46e5', borderRadius: 16, boxShadow: '0 20px 40px rgba(79,70,229,.4)', padding: '12px 18px', color: '#fff' }}>
+              <div style={{ fontSize: 11, opacity: 0.8 }}>Nuevos estudiantes</div>
+              <div style={{ fontSize: 26, fontWeight: 900, lineHeight: 1.1 }}>+34%</div>
+              <div style={{ fontSize: 10, opacity: 0.65 }}>este mes</div>
             </motion.div>
           </motion.div>
         </div>
       </div>
 
-      {/* Bottom wave */}
-      <div className="absolute bottom-0 left-0 right-0">
-        <svg viewBox="0 0 1440 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M0 80L60 72C120 64 240 48 360 40C480 32 600 32 720 38.7C840 45.3 960 58.7 1080 61.3C1200 64 1320 56 1380 52L1440 48V80H1380C1320 80 1200 80 1080 80C960 80 840 80 720 80C600 80 480 80 360 80C240 80 120 80 60 80H0Z"
-            fill="white"
-          />
+      {/* Wave */}
+      <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0 }}>
+        <svg viewBox='0 0 1440 72' fill='none'>
+          <path d='M0 72L60 64C120 56 240 40 360 32C480 24 600 24 720 30.7C840 37.3 960 50.7 1080 53.3C1200 56 1320 48 1380 44L1440 40V72H0Z' fill='white' />
         </svg>
       </div>
+
+      <style>{`
+        @media (max-width: 900px) {
+          .hero-grid { grid-template-columns: 1fr !important; }
+        }
+        @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(.85)} }
+      `}</style>
     </section>
-  );
+  )
 }

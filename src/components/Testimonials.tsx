@@ -1,100 +1,87 @@
-"use client";
+'use client'
 
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
-import { useRef } from "react";
-import { Star } from "lucide-react";
+import { motion, useInView } from 'framer-motion'
+import { useRef } from 'react'
+import { Star, Quote } from 'lucide-react'
 
 const testimonials = [
   {
-    name: "Ricardo Peñaloza",
-    role: "Director, Academia Vial Bogotá",
-    avatar: "RP",
-    color: "bg-blue-600",
+    name: 'Ricardo Peñaloza',
+    role: 'Director, Academia Vial Bogotá',
+    avatar: 'RP', bg: '#4f46e5',
     rating: 5,
-    text: "ConduClass transformó la operación de nuestra academia. Antes tardábamos horas organizando los horarios; ahora todo está automatizado. Nuestros instructores están más tranquilos y los estudiantes más satisfechos.",
+    text: 'ConduClass transformó la operación de nuestra academia. Antes tardábamos horas organizando los horarios; ahora todo está automatizado. Nuestros instructores están más tranquilos y los estudiantes más satisfechos.',
   },
   {
-    name: "Camila Ospina",
-    role: "Administradora, ConductMed Medellín",
-    avatar: "CO",
-    color: "bg-purple-600",
+    name: 'Camila Ospina',
+    role: 'Administradora, ConductMed Medellín',
+    avatar: 'CO', bg: '#7c3aed',
     rating: 5,
-    text: "La gestión de los vehículos y el control de mantenimiento fue lo que me enamoró. Ya no se nos 'cuela' ningún carro sin revisión. Además, los reportes nos ayudan a tomar mejores decisiones cada mes.",
+    text: 'La gestión de los vehículos y el control de mantenimiento fue lo que me enamoró. Ya no se nos "cuela" ningún carro sin revisión. Los reportes nos ayudan a tomar mejores decisiones cada mes.',
   },
   {
-    name: "Jorge Ramírez",
-    role: "Fundador, EscuelaMoto Cali",
-    avatar: "JR",
-    color: "bg-orange-500",
+    name: 'Jorge Ramírez',
+    role: 'Fundador, EscuelaMoto Cali',
+    avatar: 'JR', bg: '#9333ea',
     rating: 5,
-    text: "Empezamos con 30 estudiantes y hoy gestionamos 180 gracias a que la plataforma escala con nosotros. El soporte del equipo es excepcional, siempre están disponibles cuando los necesitamos.",
+    text: 'Empezamos con 30 estudiantes y hoy gestionamos 180 gracias a que la plataforma escala con nosotros. El soporte del equipo es excepcional, siempre están disponibles cuando los necesitamos.',
   },
-];
+]
 
 export default function Testimonials() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
+  const ref = useRef(null)
+  const inView = useInView(ref, { once: true, margin: '-80px' })
 
   return (
-    <section className="py-24 bg-white" ref={ref}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5 }}
-          className="text-center max-w-2xl mx-auto mb-16"
-        >
-          <span className="inline-block px-4 py-1.5 bg-yellow-100 text-yellow-700 text-sm font-semibold rounded-full mb-4">
+    <section id='testimonials' ref={ref} style={{ padding: '96px 0', background: '#fff' }}>
+      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 32px' }}>
+
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5 }}
+          style={{ textAlign: 'center', maxWidth: 560, margin: '0 auto 64px' }}>
+          <span style={{ display: 'inline-block', padding: '6px 16px', background: '#fef3c7', color: '#92400e', borderRadius: 99, fontSize: 13, fontWeight: 700, marginBottom: 16 }}>
             Testimonios
           </span>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 leading-tight">
+          <h2 style={{ fontSize: 'clamp(26px,3vw,38px)', fontWeight: 900, color: '#0f172a', lineHeight: 1.15, marginBottom: 12 }}>
             Academias que ya confían en ConduClass
           </h2>
-          <p className="mt-4 text-slate-500 text-lg">
+          <p style={{ fontSize: 17, color: '#64748b', lineHeight: 1.65 }}>
             Más de 500 academias en Colombia ya gestionan sus clases con nosotros.
           </p>
         </motion.div>
 
-        {/* Cards */}
-        <div className="grid md:grid-cols-3 gap-8">
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 28 }} className='testimonials-grid'>
           {testimonials.map((t, i) => (
-            <motion.div
-              key={t.name}
-              initial={{ opacity: 0, y: 30 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
+            <motion.div key={t.name}
+              initial={{ opacity: 0, y: 30 }} animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: i * 0.15 }}
-              className="bg-slate-50 rounded-3xl p-8 border border-slate-100 hover:shadow-lg transition-all duration-300"
-            >
+              style={{ background: '#f8fafc', borderRadius: 20, padding: 32, border: '1px solid #e2e8f0', position: 'relative', boxShadow: '0 2px 8px rgba(0,0,0,.04)' }}>
+              {/* Quote icon */}
+              <div style={{ position: 'absolute', top: 24, right: 24, opacity: 0.12 }}>
+                <Quote size={40} color='#4f46e5' />
+              </div>
               {/* Stars */}
-              <div className="flex gap-1 mb-5">
+              <div style={{ display: 'flex', gap: 3, marginBottom: 16 }}>
                 {Array.from({ length: t.rating }).map((_, j) => (
-                  <Star key={j} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                  <Star key={j} size={16} color='#f59e0b' fill='#f59e0b' />
                 ))}
               </div>
-
-              {/* Quote */}
-              <blockquote className="text-slate-700 text-sm leading-relaxed mb-6">
-                &ldquo;{t.text}&rdquo;
+              <blockquote style={{ fontSize: 14, color: '#475569', lineHeight: 1.75, marginBottom: 24, fontStyle: 'italic' }}>
+                "{t.text}"
               </blockquote>
-
-              {/* Author */}
-              <div className="flex items-center gap-3">
-                <div
-                  className={`w-10 h-10 rounded-full ${t.color} flex items-center justify-center text-white text-sm font-bold`}
-                >
+              <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                <div style={{ width: 44, height: 44, borderRadius: '50%', background: t.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14, fontWeight: 800, color: '#fff', flexShrink: 0 }}>
                   {t.avatar}
                 </div>
                 <div>
-                  <div className="text-sm font-bold text-slate-900">{t.name}</div>
-                  <div className="text-xs text-slate-500">{t.role}</div>
+                  <div style={{ fontSize: 14, fontWeight: 700, color: '#1e293b' }}>{t.name}</div>
+                  <div style={{ fontSize: 12, color: '#94a3b8' }}>{t.role}</div>
                 </div>
               </div>
             </motion.div>
           ))}
         </div>
       </div>
+      <style>{`@media(max-width:900px){.testimonials-grid{grid-template-columns:1fr!important}}`}</style>
     </section>
-  );
+  )
 }
