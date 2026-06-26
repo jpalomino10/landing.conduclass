@@ -24,7 +24,7 @@ const inputStyle: React.CSSProperties = {
   fontFamily: 'inherit', background: '#f8fafc', transition: 'border-color .2s',
 }
 
-const API_BASE = 'http://localhost:3600'
+const API_BASE = process.env.NEXT_PUBLIC_API_BASE ?? 'http://localhost:3600'
 
 const STUDENTS_OPTIONS = [
   { label: 'Menos de 20',   value: '1-20' },
