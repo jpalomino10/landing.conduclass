@@ -1,8 +1,16 @@
 'use client'
 
 import { motion, useInView } from 'framer-motion'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Send, Mail, Phone, MapPin, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react'
+
+declare global {
+  interface Window {
+    grecaptcha: {
+      execute: (siteKey: string, options: { action: string }) => Promise<string>
+    }
+  }
+}
 
 const info = [
   { icon: Mail,   label: 'Correo electrónico', value: 'condu.class@conduclass.com', href: 'mailto:condu.class@conduclass.com' },
@@ -24,7 +32,8 @@ const inputStyle: React.CSSProperties = {
   fontFamily: 'inherit', background: '#f8fafc', transition: 'border-color .2s',
 }
 
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE ?? 'http://localhost:3600'
+const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY ?? ''
+const API_BASE           = process.env.NEXT_PUBLIC_API_BASE ?? 'http://localhost:3600'
 
 const STUDENTS_OPTIONS = [
   { label: 'Menos de 20',   value: '1-20' },
@@ -41,22 +50,39 @@ export default function Contact() {
   const [loading, setLoading] = useState(false)
   const [error, setError]     = useState<string | null>(null)
 
+  useEffect(() => {
+    if (!RECAPTCHA_SITE_KEY) return
+    const script = document.createElement('script')
+    script.src = `https://www.google.com/recaptcha/api.js?render=${RECAPTCHA_SITE_KEY}`
+    script.async = true
+    document.head.appendChild(script)
+    return () => { document.head.removeChild(script) }
+  }, [])
+
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     setError(null)
     setLoading(true)
 
     const form = e.currentTarget
-    const data = {
-      full_name:      (form.elements.namedItem('full_name')      as HTMLInputElement).value.trim(),
-      company:        (form.elements.namedItem('company')        as HTMLInputElement).value.trim(),
-      email:          (form.elements.namedItem('email')          as HTMLInputElement).value.trim(),
-      phone:          (form.elements.namedItem('phone')          as HTMLInputElement).value.trim(),
-      students_range: (form.elements.namedItem('students_range') as HTMLSelectElement).value,
-      message:        (form.elements.namedItem('message')        as HTMLTextAreaElement).value.trim() || undefined,
-    }
 
     try {
+      if (!window.grecaptcha) {
+        throw new Error('recaptcha_not_ready')
+      }
+
+      const recaptcha_token = await window.grecaptcha.execute(RECAPTCHA_SITE_KEY, { action: 'demo_request' })
+
+      const data = {
+        full_name:      (form.elements.namedItem('full_name')      as HTMLInputElement).value.trim(),
+        company:        (form.elements.namedItem('company')        as HTMLInputElement).value.trim(),
+        email:          (form.elements.namedItem('email')          as HTMLInputElement).value.trim(),
+        phone:          (form.elements.namedItem('phone')          as HTMLInputElement).value.trim(),
+        students_range: (form.elements.namedItem('students_range') as HTMLSelectElement).value,
+        message:        (form.elements.namedItem('message')        as HTMLTextAreaElement).value.trim() || undefined,
+        recaptcha_token,
+      }
+
       const res = await fetch(`${API_BASE}/api/demo-request`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -71,8 +97,12 @@ export default function Contact() {
       } else {
         setError('Ocurrió un error en el servidor. Por favor inténtalo más tarde.')
       }
-    } catch {
-      setError('No se pudo conectar con el servidor. Verifica tu conexión e inténtalo de nuevo.')
+    } catch (err: unknown) {
+      if (err instanceof Error && err.message === 'recaptcha_not_ready') {
+        setError('El verificador de seguridad aún no está listo. Espera un momento e intenta de nuevo.')
+      } else {
+        setError('No se pudo conectar con el servidor. Verifica tu conexión e inténtalo de nuevo.')
+      }
     } finally {
       setLoading(false)
     }
