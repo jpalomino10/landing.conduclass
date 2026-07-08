@@ -1,25 +1,35 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { usePathname } from 'next/navigation'
 import { Menu, X, Car } from 'lucide-react'
 
-const navLinks = [
-  { href: '#features',     label: 'Funcionalidades' },
-  { href: '#how',          label: 'Cómo funciona' },
-  { href: '#benefits',     label: 'Beneficios' },
-  { href: '#testimonials', label: 'Testimonios' },
-  { href: '#contact',      label: 'Contacto' },
+const hashLinks = [
+  { hash: '#features',     label: 'Funcionalidades' },
+  { hash: '#how',          label: 'Cómo funciona' },
+  { hash: '#benefits',     label: 'Beneficios' },
+  { hash: '#testimonials', label: 'Testimonios' },
+  { hash: '#contact',      label: 'Contacto' },
 ]
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const pathname = usePathname()
+  const isHome = pathname === '/'
 
   useEffect(() => {
+    if (!isHome) { setScrolled(true); return }
     const h = () => setScrolled(window.scrollY > 20)
+    h()
     window.addEventListener('scroll', h)
     return () => window.removeEventListener('scroll', h)
-  }, [])
+  }, [isHome])
+
+  const navLinks = hashLinks.map(l => ({
+    href: isHome ? l.hash : `/${l.hash}`,
+    label: l.label,
+  }))
 
   return (
     <header style={{
@@ -33,7 +43,7 @@ export default function Navbar() {
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 72 }}>
 
           {/* Logo */}
-          <a href='#' style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none' }}>
+          <a href={isHome ? '#' : '/'} style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none' }}>
             <div style={{ width: 38, height: 38, background: '#4f46e5', borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <Car size={20} color='#fff' />
             </div>
@@ -60,7 +70,7 @@ export default function Navbar() {
               style={{ fontSize: 14, fontWeight: 500, color: scrolled ? '#475569' : 'rgba(255,255,255,.85)', textDecoration: 'none' }}>
               Iniciar sesión
             </a>
-            <a href='#contact'
+            <a href={isHome ? '#contact' : '/#contact'}
               style={{ display: 'inline-flex', alignItems: 'center', padding: '10px 20px', background: '#4f46e5', color: '#fff', fontSize: 14, fontWeight: 700, borderRadius: 12, textDecoration: 'none', boxShadow: '0 2px 8px rgba(79,70,229,.4)' }}>
               Solicitar demo
             </a>
@@ -89,7 +99,7 @@ export default function Navbar() {
                 style={{ padding: '12px', textAlign: 'center', fontSize: 14, fontWeight: 500, color: '#475569', border: '1px solid #e2e8f0', borderRadius: 12, textDecoration: 'none' }}>
                 Iniciar sesión
               </a>
-              <a href='#contact'
+              <a href={isHome ? '#contact' : '/#contact'}
                 style={{ padding: '12px', textAlign: 'center', fontSize: 14, fontWeight: 700, color: '#fff', background: '#4f46e5', borderRadius: 12, textDecoration: 'none' }}>
                 Solicitar demo
               </a>

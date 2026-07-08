@@ -21,7 +21,7 @@ const links = {
   ],
   Legal: [
     { label: 'Términos de uso',        href: '#' },
-    { label: 'Política de privacidad', href: '#' },
+    { label: 'Política de privacidad', href: '/privacidad' },
     { label: 'Habeas Data',            href: '#' },
   ],
 }
@@ -40,7 +40,7 @@ export default function Footer() {
 
           {/* Brand */}
           <div>
-            <a href='#' style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none', marginBottom: 14 }}>
+            <a href='/' style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none', marginBottom: 14 }}>
               <div style={{ width: 38, height: 38, background: '#4f46e5', borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <Car size={20} color='#fff' />
               </div>
