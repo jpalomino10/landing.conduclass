@@ -240,7 +240,7 @@ export default function Contact() {
 
                 <p style={{ fontSize: 12, textAlign: 'center', color: '#94a3b8' }}>
                   Al enviar, aceptas nuestra{' '}
-                  <a href='#' style={{ color: '#6366f1', textDecoration: 'underline' }}>política de privacidad</a>.
+                  <a href='/privacidad' style={{ color: '#6366f1', textDecoration: 'underline' }}>política de privacidad</a>.
                   Nunca compartiremos tus datos.
                 </p>
               </form>
