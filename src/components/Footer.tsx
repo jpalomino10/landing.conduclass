@@ -1,30 +1,7 @@
 'use client'
 
+import { usePathname } from 'next/navigation'
 import { Car, Globe, MessageCircle, Mail } from 'lucide-react'
-
-const links = {
-  Producto: [
-    { label: 'Funcionalidades', href: '#features' },
-    { label: 'Cómo funciona',   href: '#how' },
-    { label: 'Beneficios',      href: '#benefits' },
-    { label: 'Testimonios',     href: '#testimonials' },
-  ],
-  Empresa: [
-    { label: 'Sobre nosotros', href: '#' },
-    { label: 'Blog',           href: '#' },
-    { label: 'Casos de éxito', href: '#' },
-  ],
-  Soporte: [
-    { label: 'Centro de ayuda', href: '#' },
-    { label: 'Documentación',   href: '#' },
-    { label: 'Contacto',        href: '#contact' },
-  ],
-  Legal: [
-    { label: 'Términos de uso',        href: '/terminos' },
-    { label: 'Política de privacidad', href: '/privacidad' },
-    { label: 'Habeas Data',            href: '#' },
-  ],
-}
 
 const social = [
   { Icon: Globe,          href: '#',                         label: 'Web' },
@@ -33,6 +10,34 @@ const social = [
 ]
 
 export default function Footer() {
+  const pathname = usePathname()
+  const isHome = pathname === '/'
+  const h = (hash: string) => isHome ? hash : (hash === '#' ? '/' : `/${hash}`)
+
+  const links = {
+    Producto: [
+      { label: 'Funcionalidades', href: h('#features') },
+      { label: 'Cómo funciona',   href: h('#how') },
+      { label: 'Beneficios',      href: h('#benefits') },
+      { label: 'Testimonios',     href: h('#testimonials') },
+    ],
+    Empresa: [
+      { label: 'Sobre nosotros', href: h('#') },
+      { label: 'Blog',           href: h('#') },
+      { label: 'Casos de éxito', href: h('#') },
+    ],
+    Soporte: [
+      { label: 'Centro de ayuda', href: '#' },
+      { label: 'Documentación',   href: '#' },
+      { label: 'Contacto',        href: h('#contact') },
+    ],
+    Legal: [
+      { label: 'Términos de uso',        href: '/terminos' },
+      { label: 'Política de privacidad', href: '/privacidad' },
+      { label: 'Habeas Data',            href: '/habeas-data' },
+    ],
+  }
+
   return (
     <footer style={{ background: '#0f172a', color: '#94a3b8' }}>
       <div style={{ maxWidth: 1200, margin: '0 auto', padding: '64px 32px 0' }}>
