@@ -20,7 +20,7 @@ const links = {
     { label: 'Contacto',        href: '#contact' },
   ],
   Legal: [
-    { label: 'Términos de uso',        href: '#' },
+    { label: 'Términos de uso',        href: '/terminos' },
     { label: 'Política de privacidad', href: '/privacidad' },
     { label: 'Habeas Data',            href: '#' },
   ],
