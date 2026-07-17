@@ -2,7 +2,7 @@
 
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
-import { Users, UserCheck, Car, CalendarDays, ClipboardList, Bell, BarChart3, Smartphone } from 'lucide-react'
+import { Users, UserCheck, Car, CalendarDays, ClipboardList, Bell, BarChart3, Smartphone, Apple } from 'lucide-react'
 
 const features = [
   { icon: Users,         title: 'Gestión de estudiantes',  desc: 'Registra, organiza y da seguimiento al avance de cada alumno. Historial de clases, nivel y proceso de formación.', bg: '#eef2ff', color: '#4f46e5' },
@@ -12,7 +12,7 @@ const features = [
   { icon: ClipboardList, title: 'Evaluaciones por nivel',  desc: 'Registra el desempeño por clase con calificaciones. El alumno ve su avance por niveles en tiempo real.', bg: '#ecfeff', color: '#0891b2' },
   { icon: Bell,          title: 'Notificaciones',          desc: 'Recordatorios de clases, alertas de cambios de horario y avisos de mantenimiento enviados automáticamente.', bg: '#fffbeb', color: '#d97706' },
   { icon: BarChart3,     title: 'Reportes en tiempo real', desc: 'Dashboards con progreso de estudiantes, horas de instructores y uso de vehículos para tomar mejores decisiones.', bg: '#fff1f2', color: '#e11d48' },
-  { icon: Smartphone,    title: 'App móvil incluida',      desc: 'Estudiantes e instructores tienen su propia app para programar clases y consultar la agenda desde cualquier lugar.', bg: '#f0f9ff', color: '#0284c7' },
+  { icon: Smartphone,    title: 'App móvil incluida',      desc: 'Estudiantes e instructores tienen su propia app para programar clases y consultar la agenda desde cualquier lugar.', bg: '#f0f9ff', color: '#0284c7', href: 'https://apps.apple.com/co/app/conduclass/id6790471142' },
 ]
 
 export default function Features() {
@@ -47,9 +47,19 @@ export default function Features() {
                 style={{ background: '#fff', borderRadius: 16, padding: 24, border: '1px solid #e2e8f0', boxShadow: '0 1px 4px rgba(0,0,0,.04)', transition: 'box-shadow .2s,transform .2s' }}
                 onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.boxShadow = '0 8px 24px rgba(79,70,229,.12)'; (e.currentTarget as HTMLDivElement).style.transform = 'translateY(-3px)' }}
                 onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.boxShadow = '0 1px 4px rgba(0,0,0,.04)'; (e.currentTarget as HTMLDivElement).style.transform = 'none' }}>
-                <div style={{ width: 48, height: 48, borderRadius: 12, background: f.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 16 }}>
-                  <Icon size={22} color={f.color} />
-                </div>
+                {f.href ? (
+                  <a href={f.href} target='_blank' rel='noopener noreferrer' aria-label='Descargar en la App Store'
+                    style={{ position: 'relative', width: 48, height: 48, borderRadius: 12, background: f.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 16 }}>
+                    <Icon size={22} color={f.color} />
+                    <span style={{ position: 'absolute', bottom: -6, right: -6, width: 22, height: 22, borderRadius: '50%', background: '#0f172a', border: '2px solid #fff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <Apple size={12} color='#fff' />
+                    </span>
+                  </a>
+                ) : (
+                  <div style={{ width: 48, height: 48, borderRadius: 12, background: f.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 16 }}>
+                    <Icon size={22} color={f.color} />
+                  </div>
+                )}
                 <h3 style={{ fontSize: 15, fontWeight: 700, color: '#1e293b', marginBottom: 8 }}>{f.title}</h3>
                 <p style={{ fontSize: 13, color: '#64748b', lineHeight: 1.6 }}>{f.desc}</p>
               </motion.div>
