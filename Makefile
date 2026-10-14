@@ -9,3 +9,6 @@ i:
 
 push:
 	git add . && git commit -m "commit automaticos" && git push;
+
+build:
+	git pull && docker compose up -d --build

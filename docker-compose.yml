@@ -1,0 +1,37 @@
+# Docker Compose interpola ${VAR} de este archivo leyendo un `.env` en esta
+# misma carpeta (NO lee `.env.local`, que es la convención de Next.js para
+# dev). Antes de compilar, asegúrate de tener un `.env` con
+# NEXT_PUBLIC_API_BASE (apuntando a producción) y
+# NEXT_PUBLIC_RECAPTCHA_SITE_KEY — si el `.env` no existe o está vacío, el
+# build igual "funciona" pero esas variables quedan horneadas vacías en el
+# bundle del cliente, sin error visible.
+services:
+  web:
+    build:
+      context: .
+      args:
+        NEXT_PUBLIC_API_BASE: ${NEXT_PUBLIC_API_BASE}
+        NEXT_PUBLIC_RECAPTCHA_SITE_KEY: ${NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+    image: landing-conduclass:latest
+    restart: unless-stopped
+    ports:
+      # Solo localhost: nginx (del sistema, fuera de Docker) le hace
+      # proxy_pass a este puerto. No se publica en 0.0.0.0 para no
+      # exponerlo directo a internet ni pelear por el puerto con otra app.
+      - "127.0.0.1:3002:3002"
+    healthcheck:
+      # 127.0.0.1 explícito, no "localhost": si resuelve primero a ::1
+      # (IPv6) y el server solo escucha en IPv4, wget falla sin reintentar.
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:3002/"]
+      interval: 30s
+      timeout: 5s
+      start_period: 20s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          cpus: "2"
+          memory: 2G
+    logging:
+      driver: json-file
+      options: { max-size: "10m", max-file: "3" }
